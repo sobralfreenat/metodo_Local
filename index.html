@@ -1,96 +1,465 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Work Time Calculator - Live Update</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-    }
-    .calculator {
-      max-width: 400px;
-      margin: 0 auto;
-      border: 3px solid #500980;
-      border-radius: 5px;
-      padding: 20px;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    label {
-      font-weight: bold;
-    }
-    input[type="number"] {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      box-sizing: border-box;
-    }
-    .result {
-      margin-top: 20px;
-      text-align: center;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      margin-top: 20px;
-	  width: 100px; /* Tamanho ajustável */
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      border: 5px solid #500980;
-      border-radius: 50%;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FNW Assessoria Digital</title>
+    <style>
+
+#logoHeader {
+    width: 70px; /* Controle de tamanho */
+    opacity:1; /* Controle de transparência */
+    /* Outros controles de estilo conforme necessário */
+}
+        body {
+            font-family: Arial, sans-serif;
+            margin: -11;
+            padding: -11;
+        }
+
+        header {
+            background-color: black;
+            color: #ffffff;
+            padding: 11px;
+            text-align: center;
+			opacity: 0.9;
+        }
+
+		
+
+        #hero {
+    color: blue;
+    padding: 90px 50px;
+    text-align: center;
+    position: relative; /* Essencial para o posicionamento do pseudo-elemento */
+    overflow: hidden; /* Impede que o desfoque se estenda além dos limites do #hero */
+}
+
+#hero::before {
+    content: ''; /* Necessário para gerar o pseudo-elemento */
+    position: absolute;
+    top: -10px; /* Ajuste para compensar o raio do desfoque */
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background-image: url('https://d1yei2z3i6k35z.cloudfront.net/3119789/6638d9b905f48_ArtecapaLP.jpg');
+    background-size: cover;
+    filter: blur(10px); /* Aplica o efeito de desfoque */
+    z-index: -1; /* Garante que o pseudo-elemento fique atrás do conteúdo do #hero */
+}
+
+#hero::after {
+    content: ''; /* Necessário para gerar o pseudo-elemento */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 120, 210, 0.3); /* Cor de fundo preta com transparência */
+    z-index: 0; /* Posiciona a camada de transparência acima da imagem e abaixo do conteúdo */
+}
+
+#hero h1 {
+    font-size: 40px; /* Tamanho da fonte */
+    font-weight: bold; /* Peso da fonte */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9); /* Sombra do texto */
+    margin-bottom: 20px; /* Espaçamento abaixo do título */
+    color: #FFFFFF; /* Cor do título */
+}
+
+#hero h2 {
+    font-size: 26px; /* Tamanho da fonte */
+    font-weight: normal; /* Peso da fonte */
+    color: rgba(0, 120, 210, 0.3); /* Cor da fonte com transparência */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Sombra do texto */
+}
+
+        #services, #about {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        #timeline {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .event {
+            display: none;
+            padding: 10px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 80%;
+        }
+
+		.event {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Ajusta o espaço entre a imagem e o texto */
+}
+
+.event-image {
+    width: 640px; /* Ajusta a largura da imagem */
+    height: auto; /* Mantém a proporção da imagem */
+    border-radius: 5px; /* Adiciona bordas arredondadas à imagem */
+}
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: blue;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: #333333;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+		#loop {
+    opacity: 0.5;
+    color: #ccc;
+    background-color: #f0f0f0;
+    pointer-events: none; /* Impede que o botão seja clicável */
+    transition: opacity 0.3s, color 0.3s, background-color 0.3s; /* Suaviza a transição */
+}
+
+#loop.show {
+    opacity: 1;
+    color: white; /* Cor do texto para estado ativo */
+    background-color: blue; /* Cor de fundo para estado ativo */
+    pointer-events: auto; /* Permite interações com o botão */
+}
+
+.accordion-button {
+    background-color: #f1f1f1;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: background-color 0.6s ease;
+}
+
+.accordion-button:after {
+    content: '\002B'; /* Símbolo de adição */
+    color: #afffff;
+    float: right;
+    margin-left: 5px;
+}
+
+.accordion-button[aria-expanded="true"]:after {
+    content: "\2212"; /* Símbolo de subtração */
+}
+
+.accordion-content {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: white;
+}
+
+#button-container {
+    display: flex;
+    justify-content: center; /* Centraliza os itens no eixo horizontal */
+    gap: 10px; /* Espaçamento entre os botões */
+    width: 100%; /* Garante que o contêiner ocupe toda a largura */
+}
+
+#whatsapp-float {
+    position: fixed;
+    bottom: 20px; /* Distância do fundo da página */
+    right: 700px; /* Distância da direita da página */
+    z-index: 1000; /* Garante que fique acima de outros elementos */
+}
+
+    </style>
 </head>
 <body>
- <div class="calculator">
-    <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/661f5784796fc_wortimeicon.png" alt="Uploaded Image" id="uploadedImage">
-  <h2>Work Time Calculator</h2>
- 
-    <div class="form-group">
-      <label for="minutesRecorded">Minutes Recorded:</label>
-      <input type="number" id="minutesRecorded" min="0" step="1" value="1" oninput="calculateTime()">
+    <header>
+<header>
+    <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/661b196baddad_FNWfreenatstoreLogodownload.jpg" alt="Logo" id="logoHeader">
+    <!-- Outros elementos do header, como títulos ou links de navegação -->
+</header>
+        <h1>FNW ASSESSORIA DIGITAL</h1>
+    </header>
+
+    <section id="hero">
+        <h2>CONHEÇA O MÉTODO </h2>
+
+        <p><h1>L.O.C.A.L.</h1></p>
+		<h5>Leads Otimizados e Calibragem Avançada de Lucratividade
+
+		<p><h3> Impulsione Seu Negócio Local, Maximizando Sua Presença Online 
+
+		<p><h2> AUMENTE SUA VISIBILIDADE NA INTERTNET
+    </section>
+
+    <section id="services">
+        <!-- <h3>Nossos Serviços</h3>
+        <p>Oferecemos uma ampla gama de serviços para manter sua piscina perfeita.</p>
+    </section> -->
+
+
+<section id="timeline">
+    <h3>PERSONALIZADO</h3>
+
+<br>
+
+ <!--Sigla (Método): 
+
+LOCAL:
+<br>
+Leads Otimizados e Calibragem Avançada de Lucratividade -->
+Nosso Método é aplicado sob medida para o seu negóocio crescer. <p>Estratégias personalizadas para identificar e qualificar Nichos, Publico e Leads <p>com novos patamares de Receitas Recorrentes.
+
+<br><br>
+
+
+
+
+    <div id="events">
+
+<!-- Evento 00 -->
+<div class="event">
+    
+<br><br><br>
+<p><h2> Navegue com os botôes abaixo para conhecer<p> os 10 passos que vão te levar<p> para o próximo nivel</p>
+<br><br>
+    <!--<img src="" alt="Evento 00" class="event-image" id="event01Image" class="clickable-image">-->
+</div>
+
+        <!-- Evento 01 -->
+<div class="event">
+    <p>Evento 01: Seleção e Calibragem de Prioridades - CLIQUE NA IMAGEM</p>
+    <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/6640f6e2a0e32_SelecaoPrioridades.png" alt="Evento 01" class="event-image" id="event01Image" class="clickable-image">
+</div>
+        </div>
+        <!-- Evento 02 -->
+        <div class="event">
+            <p>Evento 02: Projeção de Objetivos Métricas e Metas</p>
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/6640f81059f22_CrescimentoAssinantes30dias.png" alt="Evento 02" class="event-image">
+        </div>
+        <!-- Exemplos -->
+        <div class="event">
+            <p>Exemplos: Aumento de Ticket Médio, Aumento de Base de Clientes, Retenção de Clientes</p>
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/6640f7cd5c3b5_IMAGENSFRRAMENTASPAINALPRASITE.png" alt="Exemplos" class="event-image">
+        </div>
+        <!-- Evento 03 -->
+        <div class="event">
+            <p>Evento 03: Definição Acelerada de Nicho</p>
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/6640f9877586a_DefinioAleceradaDeNichos.png" alt="Evento 03" class="event-image">
+        </div>
+        <!-- Evento 04 -->
+        <div class="event">
+            <p>Evento 04: Pesquisa e Seleção de Público Alvo Ideal</p>
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/6640fa2510d3d_MAPAandTOOLS.jpg" alt="Evento 04" class="event-image">
+        </div>
+        <!-- Evento 05 -->
+        <div class="event">
+            <p>Evento 05: LDR - Desenvolvimento de Leads Relevantes</p>
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/6640fafc21f52_LEadsRelevantes.png" alt="Evento 05" class="event-image">
+        </div>
+        <!-- Evento 06 -->
+        <div class="event">
+            <p>Evento 06: Produção de Lista de Prospecção</p>
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/6640fbcfdd211_ProducaolistadeProspeco.png" alt="Evento 06" class="event-image">
+        </div>
+        <!-- Evento 07 -->
+        <div class="event">
+            <p>Evento 07: Definição da Sequência Adaptativa de Visibilidade</p>
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/664101cc2585c_DefinioSequenciaVisibilidade.png" alt="Evento 07" class="event-image">
+        </div>
+        <!-- Exemplo: Exposição ao Lead -->
+        <div class="event">
+            <p>Exemplo: Exposição ao Lead: Problema e Solução</p>
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/664106e445610_COMPARE.jpg" alt="Exposição ao Lead" class="event-image">
+        </div>
+        <!-- Evento 08 -->
+        <div class="event">
+            <p>Evento 08: Produção e Envio de Lista de Prospecção</p>
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/6641090e469b0_EnvioListaProspect.jpg" alt="Evento 08" class="event-image">
+        </div>
+        <!-- Evento 09 
+     
+<div class="event">
+    <p>Evento 09: Cálculo de Qualificação de Leads</p>
+    <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/66410e12e9ca7_SDRTimeCalculator.png" alt="Evento 09" class="event09image" onclick="openevent09Window()" style="cursor:pointer;">
+</div> -->
+
+<!-- Evento 09 -->
+<div class="event">
+    <p>Evento 09: Cálculo de Qualificação de Leads - CLIQUE NA IMAGEM </p>
+    <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/66410e12e9ca7_SDRTimeCalculator.png" alt="Evento 09" class="event-image" id="event09Image">
+</div>
+
+
+        </div>
+        <!-- Evento 10 -->
+        <div class="event">
+            <p>Evento 10: Medição de Resultados</p>
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/6641113cd6278_MedirResultados.png" alt="Evento 10" class="event-image">
+        </div>
+        <!-- Reiniciar o Ciclo -->
+        <div class="event">
+            <p>Clique em Reiniciar o Ciclo</p>
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/664112a3d6822_PDCAMErdirresultados.png" alt="Reiniciar o Ciclo" class="event-image">
+        </div>
     </div>
-    <div class="form-group">
-      <label for="baseValue">Base Value (qtty work mins vs. 1 min rec):</label>
-      <input type="number" id="baseValue" min="1" step="1" value="25" oninput="calculateTime()">
+</section>
+        </div>
+        
+
+<div id="button-container">
+    <button id="prev"><</button>
+    <button id="next">></button>
+    <button id="loop">Reiniciar o Ciclo</button>
+</div>
+		
+    </section>
+	
+    <section id="about">
+    <h3>Sobre Nós</h3>
+    <div class="accordion">
+        <div class="accordion-item">
+            <button class="accordion-button" aria-expanded="false">Nossa Experiência</button>
+            <div class="accordion-content">
+                <p>Com mais de 25 anos de experiência em triplicar a receita, a FREENATWORK se atualiza constantemente para elevar novos empreendedores ao sucesso, mantendo-os sempre à frente da concorrência.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-button" aria-expanded="false">Metodologia Única</button>
+            <div class="accordion-content">
+                <p>Com metodologia única de desenvolvimento de negócios ajudamos a transformar ideias em lucratividade, assegurando um crescimento sustentável e exponencial.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-button" aria-expanded="false">Análise e Planejamento</button>
+            <div class="accordion-content">
+                <p>Realizamos análise de viabilidade detalhada e planejamento estratégico sob medida, oferecendo soluções inovadoras para desafios complexos. Nosso método inclui projeções preditivas, garantindo comprometimento com seu sucesso a curto médio e longo prazo com estratégias de mercado avançadas <p> e otimização de processos.</p>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-      <label for="hoursPerDay">Hours Per Day:</label>
-      <input type="number" id="hoursPerDay" min="1" step="1" value="5" oninput="calculateTime()">
-    </div>
-    <div class="result" id="result"></div>
-  </div>
 
-  <script>
-    function calculateTime() {
-      var minutesRecorded = parseInt(document.getElementById('minutesRecorded').value);
-      var baseValue = parseInt(document.getElementById('baseValue').value);
-      var hoursPerDay = parseInt(document.getElementById('hoursPerDay').value);
+<a href="https://api.whatsapp.com/send?phone=5511911595028" target="_blank" id="whatsapp-float">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 50px; height: 50px;">
+</a>
+</section>
 
-      // Calculando o tempo total de trabalho com base nos minutos registrados e no valor base
-      var totalWorkTime = minutesRecorded * baseValue;
+    </section>
 
-      // Convertendo o tempo total de trabalho para horas e minutos
-      var totalHours = totalWorkTime / 60;
+    <footer>
+        <p>✉: freenat.doc@gmail.com</p>
+    </footer>
 
-      // Calculando o total de dias necessários com base nas horas por dia
-      var totalDays = totalHours / hoursPerDay;
+    <script>
 
-      // Exibindo o resultado
-      document.getElementById('result').innerHTML = `Total Work Time: ${Math.floor(totalHours)} hours and ${Math.round((totalHours % 1) * 60)} minutes.<br>Total Days Required: ${Math.ceil(totalDays)} days.`;
+// Função para abrir a janela do Evento 01
+function openEvent01Window() {
+    var url = "https://sobralfreenat.github.io/framework_3_prioridades/";
+    var width = 600;
+    var height = 400;
+    var left = (window.screen.width / 2) - (width / 2);
+    var top = (window.screen.height / 2) - (height / 2);
+    window.open(url, "Evento01", "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=" + width + ", height=" + height + ", top=" + top + ", left=" + left);
+}
+
+// Função para abrir a janela do Evento 09
+function openEvent09Window() {
+    var url = "https://sobralfreenat.github.io/lead_gen_time_calc/"; // Substitua pela URL específica do Evento 09
+    var width = 600;
+    var height = 400;
+    var left = (window.screen.width / 2) - (width / 2);
+    var top = (window.screen.height / 2) - (height / 2);
+    window.open(url, "Evento09", "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=" + width + ", height=" + height + ", top=" + top + ", left=" + left);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Adicionando ouvinte de eventos ao clicar na imagem do Evento 01
+    document.getElementById('event01Image').addEventListener('click', openEvent01Window);
+
+    // Adicionando ouvinte de eventos ao clicar na imagem do Evento 09
+    document.getElementById('event09Image').addEventListener('click', openEvent09Window);
+});
+
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const events = document.querySelectorAll('.event');
+    let currentEvent = 0;
+    const loopButton = document.getElementById('loop'); // Referência ao botão de loop
+
+    function showEvent(index) {
+        events.forEach((event, idx) => {
+            event.style.display = idx === index ? 'block' : 'none';
+        });
+        // Verifica se o último evento está sendo mostrado
+        if (index === events.length - 1) {
+            loopButton.classList.add('show'); // Mostra o botão de loop suavemente
+        } else {
+            loopButton.classList.remove('show'); // Esconde o botão se não for o último evento
+
+		
+
+
+        }
     }
 
-    // Chamada inicial para calcular com os valores padrões ao carregar a página
-    calculateTime();
-  </script>
+    document.getElementById('next').addEventListener('click', function() {
+        if (currentEvent < events.length - 1) {
+            currentEvent++;
+            showEvent(currentEvent);
+        }
+    });
+
+    document.getElementById('prev').addEventListener('click', function() {
+        if (currentEvent > 0) {
+            currentEvent--;
+            showEvent(currentEvent);
+        }
+    });
+
+    // Adiciona funcionalidade de loop para voltar ao início
+    loopButton.addEventListener('click', function() {
+        currentEvent = 0; // Define o evento atual para o primeiro
+        showEvent(currentEvent); // Mostra o primeiro evento
+        loopButton.classList.remove('show'); // Esconde o botão de loop
+    });
+
+    showEvent(currentEvent); // Inicializa a timeline mostrando o primeiro evento
+});
+
+document.querySelectorAll('.accordion-button').forEach(button => {
+    button.addEventListener('click', () => {
+        const expanded = button.getAttribute('aria-expanded') === 'true' || false;
+        button.setAttribute('aria-expanded', !expanded);
+        const content = button.nextElementSibling;
+        if (!expanded) {
+            content.style.maxHeight = content.scrollHeight + 'px';
+        } else {
+            content.style.maxHeight = null;
+        }
+    });
+
+
+});
+
+    </script>
 </body>
 </html>
