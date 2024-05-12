@@ -264,9 +264,14 @@ Leads Otimizados e Calibragem Avançada de Lucratividade -->
         <!-- Evento 03 -->
         <div class="event">
             <p>LOCAL 03: DAN - Definição Acelerada de Nicho</p>
-            <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/6640f9877586a_DefinioAleceradaDeNichos.png" alt="Evento 03" class="event-image">
+            
+		<img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/6640f9877586a_DefinioAleceradaDeNichos.png" alt="Evento 03" class="event-image" id="event03Image" class="clickable-image">
+
+		
+
 <h5>Sua dificuldade maior está em identificar e definir Nicho? Entre em contato e solicite agendamento!
-        </div>
+        
+		</div>
         <!-- Evento 04 -->
         <div class="event">
             <p>LOCAL 04: Pesquisa e Seleção de Público Alvo Ideal</p>
@@ -323,7 +328,7 @@ Leads Otimizados e Calibragem Avançada de Lucratividade -->
             <p>Próximo: Clique em Reiniciar o Ciclo</p>
             <img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/664112a3d6822_PDCAMErdirresultados.png" alt="Reiniciar o Ciclo" class="event-image">
         </div>
-    </div>
+   
 </section>
         </div>
         
@@ -419,6 +424,18 @@ function openEvent01Window() {
     window.open(url, "Evento01", "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=" + width + ", height=" + height + ", top=" + top + ", left=" + left);
 }
 
+
+// Função para abrir a janela do Evento 03
+function openEvent03Window() {
+    var url = "https://docs.google.com/spreadsheets/d/1t9kG4SSh3eL1IlEx0y9sc8cuqSIc-tDkBwdOglit8lo/edit?usp=sharing";
+    var width = 600;
+    var height = 400;
+    var left = (window.screen.width / 2) - (width / 2);
+    var top = (window.screen.height / 2) - (height / 2);
+    window.open(url, "Evento03", "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=" + width + ", height=" + height + ", top=" + top + ", left=" + left);
+}
+
+
 // Função para abrir a janela do Evento 09
 function openEvent09Window() {
     var url = "https://sobralfreenat.github.io/lead_gen_time_calc/"; // Substitua pela URL específica do Evento 09
@@ -432,6 +449,10 @@ function openEvent09Window() {
 document.addEventListener('DOMContentLoaded', function() {
     // Adicionando ouvinte de eventos ao clicar na imagem do Evento 01
     document.getElementById('event01Image').addEventListener('click', openEvent01Window);
+
+
+    // Adicionando ouvinte de eventos ao clicar na imagem do Evento 03
+    document.getElementById('event03Image').addEventListener('click', openEvent03Window);
 
     // Adicionando ouvinte de eventos ao clicar na imagem do Evento 09
     document.getElementById('event09Image').addEventListener('click', openEvent09Window);
